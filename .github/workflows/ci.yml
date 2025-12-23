@@ -1,0 +1,29 @@
+name: CI Retraining (Skilled)
+
+on: [push]
+
+jobs:
+  train-and-upload:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          
+      - name: Install dependencies
+        run: |
+          pip install mlflow==2.19.0 scikit-learn pandas numpy
+          
+      - name: Train model
+        run: |
+          cd MLProject
+          python modelling.py
+          
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: mlflow-runs
+          path: MLProject/mlruns/
