@@ -1,7 +1,8 @@
 # MLproject
 name: titanic-skilled
 
-conda_env: conda.yaml
+# Gunakan environment Python biasa (bukan conda)
+docker_env:  # ← biarkan kosong, artinya pakai local Python
 
 entry_points:
   train:

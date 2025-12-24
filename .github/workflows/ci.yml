@@ -4,24 +4,26 @@ on: [push]
 
 jobs:
   train-and-upload:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest  # ← Linux lebih stabil untuk Python/Conda
+    
     steps:
-      - uses: actions/checkout@v4
-      
+      - name: Checkout code
+        uses: actions/checkout@v4
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-          
+      
       - name: Install dependencies
         run: |
           pip install mlflow==2.19.0 scikit-learn pandas numpy
-          
+
       - name: Train model
         run: |
           cd MLProject
-          mlflow run . --entry-point train
-          
+          mlflow run . --no-conda
+
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
