@@ -1,9 +1,10 @@
+# MLproject (versi diperbaiki)
 name: titanic-skilled
 
 conda_env: conda.yaml
 
 entry_points:
-  train:
+  main:  # ← GANTI DARI "train" JADI "main"
     parameters:
       dataset:
         type: string
