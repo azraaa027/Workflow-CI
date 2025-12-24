@@ -20,7 +20,7 @@ jobs:
       - name: Train model
         run: |
           cd MLProject
-          python modelling.py
+          mlflow run . --entry-point train
           
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
