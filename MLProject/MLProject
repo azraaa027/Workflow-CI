@@ -1,8 +1,5 @@
 name: titanic-skilled
 
-# Tidak perlu conda_env jika pakai --env-manager=local
-# conda_env: conda.yaml ← hapus baris ini jika tidak pakai conda
-
 entry_points:
-  main:
+  main:                     # ← WAJIB: "main" sebagai default
     command: "python modelling.py"
