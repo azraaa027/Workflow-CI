@@ -1,8 +1,21 @@
 name: titanic-skilled
 
-# Tidak perlu conda_env — karena pakai --env-manager=local
-# conda_env: conda.yaml ← HAPUS baris ini jika ada
+conda_env: conda.yaml
 
 entry_points:
   train:
-    command: "python modelling.py"
+    parameters:
+      dataset:
+        type: string
+        default: "titanic_preprocessed.csv"
+      C:
+        type: float
+        default: 1.0
+      max_iter:
+        type: int
+        default: 1000
+    command: >
+      python modelling.py
+      --dataset {dataset}
+      --C {C}
+      --max_iter {max_iter}

@@ -1,15 +1,12 @@
-# conda.yaml
 name: mlflow-skilled
 channels:
   - conda-forge
 dependencies:
   - python=3.12.7
-  - pip
+  - pip<=24.0
   - pip:
     - mlflow==2.19.0
-    - scikit-learn
-    - pandas
-    - numpy
-    - matplotlib
-    - seaborn
-    - optuna
+    - scikit-learn==1.4.2
+    - pandas==2.2.2
+    - numpy==1.26.4
+    - cloudpickle==3.0.0

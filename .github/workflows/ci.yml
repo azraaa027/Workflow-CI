@@ -1,31 +1,50 @@
 name: CI Retraining (Skilled)
 
-on: [push]
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
 
 jobs:
-  train-and-upload:
+  train-model:
     runs-on: ubuntu-latest
-    
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+    - name: ✅ Set up job
+      run: echo "Starting MLflow CI for Titanic..."
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      
-      - name: Install dependencies
-        run: |
-          pip install mlflow==2.19.0 scikit-learn pandas numpy
+    - name: 📥 Checkout code
+      uses: actions/checkout@v4
 
-      - name: Train model
-        run: |
-          cd MLProject
-          mlflow run . --env-manager=local
+    - name: 🐍 Set up Python 3.12.7
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.12.7"
 
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: mlflow-runs
-          path: MLProject/mlruns/
+    - name: 🔍 Check environment
+      run: |
+        python --version
+        pip --version
+
+    - name: 📦 Install core dependencies
+      run: |
+        pip install mlflow==2.19.0 scikit-learn pandas numpy
+
+    - name: 🐍 Set up Miniconda (for MLproject compatibility)
+      uses: conda-incubator/setup-miniconda@v3
+      with:
+        auto-update-conda: true
+        python-version: 3.12
+        activate-environment: mlflow-skilled
+
+    - name: ▶️ Run MLflow Project
+      shell: bash -l {0}
+      run: |
+        cd MLProject
+        mlflow run . --env-manager=local
+
+    - name: 📤 Upload MLflow artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: mlflow-runs-titanic
+        path: MLProject/mlruns/
