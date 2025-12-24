@@ -1,22 +1,8 @@
-# MLproject (versi diperbaiki)
 name: titanic-skilled
 
-conda_env: conda.yaml
+# Tidak perlu conda_env jika pakai --env-manager=local
+# conda_env: conda.yaml ← hapus baris ini jika tidak pakai conda
 
 entry_points:
-  main:  # ← GANTI DARI "train" JADI "main"
-    parameters:
-      dataset:
-        type: string
-        default: "titanic_preprocessed.csv"
-      C:
-        type: float
-        default: 1.0
-      max_iter:
-        type: int
-        default: 1000
-    command: >
-      python modelling.py
-      --dataset {dataset}
-      --C {C}
-      --max_iter {max_iter}
+  train:
+    command: "python modelling.py"
