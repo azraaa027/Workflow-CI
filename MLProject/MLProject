@@ -4,5 +4,5 @@ name: titanic-skilled
 # conda_env: conda.yaml ← hapus baris ini jika tidak pakai conda
 
 entry_points:
-  train:
+  main:
     command: "python modelling.py"
