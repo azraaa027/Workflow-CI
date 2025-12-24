@@ -3,19 +3,15 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score
-import argparse
-
-# 1. HAPUS set_tracking_uri jika tidak ada server local di GitHub Actions
-# 2. HAPUS set_experiment agar mengikuti parameter dari CLI
 
 df = pd.read_csv("titanic_preprocessed.csv")
 X = df.drop("Survived", axis=1)
 y = df["Survived"]
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-mlflow.sklearn.autolog()
+# ✅ Autolog tanpa set_experiment
+mlflow.sklearn.autolog(log_models=True)
 
-# mlflow.start_run() tetap bisa digunakan, tapi jangan ganti eksperimen di atasnya
 with mlflow.start_run():
     model = LogisticRegression()
     model.fit(X_train, y_train)
@@ -23,4 +19,4 @@ with mlflow.start_run():
     acc = accuracy_score(y_test, y_pred)
     mlflow.log_metric("test_accuracy", acc)
     
-    print(f"✅ Training selesai. Accuracy: {acc:.4f}")
+    print(f"✅ CI training selesai. Accuracy: {acc:.4f}")

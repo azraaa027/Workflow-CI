@@ -1,5 +1,5 @@
 name: titanic-skilled
 
 entry_points:
-  main:                     # ← WAJIB: "main" sebagai default
+  main:
     command: "python modelling.py"
